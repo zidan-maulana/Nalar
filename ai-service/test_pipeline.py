@@ -80,7 +80,7 @@ async def run_full_pipeline_test():
         level_reached=res_s3.evaluation.level_reached,
         rounds_used=res_s3.rounds_used
     )
-    res_s4 = score_concept(req_s4)
+    res_s4 = await score_concept(req_s4)
     print(json.dumps(res_s4.model_dump(), indent=2, ensure_ascii=False))
 
     # -------------------------------------------------------------
