@@ -58,6 +58,7 @@ class ChipActionRequest(BaseModel):
     """
     session_id: str = Field(..., description="ID sesi pengujian aktif")
     concept_id: str = Field(..., description="ID konsep yang sedang dipelajari")
+    concept_name: Optional[str] = Field(None, description="Nama konsep (contoh: 'Transport Layer')")
     chip_id: Literal["another_analogy", "breakdown_term", "mini_retest"] = Field(
         ...,
         description="ID tombol yang diklik pengguna"

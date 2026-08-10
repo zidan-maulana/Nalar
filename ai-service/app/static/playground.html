@@ -461,13 +461,20 @@
                 document.getElementById('out-s3').classList.remove('hidden');
                 document.getElementById('out-s3').innerHTML = `
                     <div style="padding: 1rem; background: rgba(6, 182, 212, 0.1); border-radius: 0.5rem; border: 1px solid var(--accent-cyan);">
-                        <strong>💬 Respon Dosen AI:</strong> ${data.next_question}<br><br>
+                        <strong>💬 Respon Dosen AI:</strong> ${data.next_question || 'Sesi Ujian Selesai! Silakan lanjut ke Stage 4.'}<br><br>
                         <small><strong>Level Terbukti:</strong> ${data.evaluation.level_reached.toUpperCase()} | <strong>Evidence Trail:</strong> "${data.evaluation.evidence_trail[0] || '-'}"</small>
                     </div>
                 `;
 
-                document.getElementById('section-s4').classList.remove('hidden');
-                setPillActive(4);
+                if (data.is_completed) {
+                    // Hanya tampilkan Stage 4 jika sesi ujian BENAR-BENAR SELSEAI
+                    document.getElementById('section-s4').classList.remove('hidden');
+                    setPillActive(4);
+                } else {
+                    // Sesi ujian masih berlanjut (misal: teguran atau pertanyaan level berikutnya)
+                    document.getElementById('user-answer-input').value = '';
+                    document.getElementById('user-answer-input').focus();
+                }
             } catch (e) {
                 alert('Gagal Stage 3: ' + e.message);
             } finally {
@@ -488,7 +495,7 @@
                         session_id: 'sess-playground',
                         concept_id: state.concept.concept_id,
                         confidence_input: parseInt(document.getElementById('confidence-select').value),
-                        level_reached: state.evaluation ? state.evaluation.level_reached : 'definisi',
+                        level_reached: state.evaluation ? state.evaluation.level_reached : 'none',
                         rounds_used: state.roundsUsed
                     })
                 });
@@ -568,6 +575,11 @@
                     body: JSON.stringify({
                         session_id: 'sess-playground',
                         concept_id: state.concept.concept_id,
+                        concept_name: state.concept.name,
+                        chip_id: chipId,
+                        current_turn_count: state.turnCount
+                    })
+                });
                         chip_id: chipId,
                         current_turn_count: state.turnCount
                     })

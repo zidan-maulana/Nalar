@@ -105,12 +105,13 @@ async def process_chip_action(request: ChipActionRequest):
     max_turns = 3
     turns_remaining = max(0, max_turns - request.current_turn_count)
     suggest_retest = turns_remaining == 0
+    c_name = request.concept_name or request.concept_id
 
     if not settings.GEMINI_API_KEY:
         content_mock = {
-            "another_analogy": f"Analogi alternatif lain: Bayangkan {request.concept_id} seperti sistem pendaftaran antrean di rumah sakit...",
-            "breakdown_term": f"Penjelasan istilah '{request.selected_text or 'spesifik'}': Ini mengacu pada...",
-            "mini_retest": f"Pertanyaan Uji Ulang Mini: Jika terjadi lonjakan trafik 2x lipat, apa langkah pertama yang dilakukan {request.concept_id}?"
+            "another_analogy": f"Analogi alternatif lain: Bayangkan {c_name} seperti sistem pos pengiriman paket di gedung perkantoran besar...",
+            "breakdown_term": f"Penjelasan istilah '{request.selected_text or c_name}': Ini mengacu pada mekanisme pengaturan lalu lintas data secara aman dan end-to-end.",
+            "mini_retest": f"Pertanyaan Uji Ulang Mini: Jika terjadi lonjakan trafik 2x lipat, apa langkah pertama yang dilakukan {c_name}?"
         }.get(request.chip_id, "Penjelasan bantuan tambahan.")
 
         return ChipActionResponse(
@@ -124,12 +125,12 @@ async def process_chip_action(request: ChipActionRequest):
         client = genai.Client(api_key=settings.GEMINI_API_KEY)
         
         chip_prompts = {
-            "another_analogy": f"Berikan 1 analogi dunia nyata lain yang BERBEDA dan sangat mudah dibayangkan untuk konsep {request.concept_id}. Maksimal 2 paragraf ringkas.",
-            "breakdown_term": f"Jelaskan istilah/kalimat berikut secara sangat sederhana dan to-the-point: '{request.selected_text or request.concept_id}'. Maksimal 2 paragraf.",
-            "mini_retest": f"Berikan 1 pertanyaan uji pemahaman singkat (1 soal open-ended) untuk menguji apakah pengguna sudah paham konsep {request.concept_id} sekarang."
+            "another_analogy": f"Berikan 1 analogi dunia nyata lain yang BERBEDA dan sangat mudah dibayangkan untuk konsep {c_name}. Maksimal 2 paragraf ringkas.",
+            "breakdown_term": f"Jelaskan istilah/kalimat berikut secara sangat sederhana, mendalam, dan to-the-point: '{request.selected_text or c_name}'. Maksimal 2 paragraf.",
+            "mini_retest": f"Berikan 1 pertanyaan uji pemahaman singkat (1 soal open-ended) untuk menguji apakah pengguna sudah paham konsep {c_name} sekarang."
         }
 
-        prompt = chip_prompts.get(request.chip_id, f"Jelaskan bantuan untuk {request.concept_id}")
+        prompt = chip_prompts.get(request.chip_id, f"Jelaskan bantuan untuk {c_name}")
 
         response = client.models.generate_content(
             model=settings.DEFAULT_LLM_MODEL,
@@ -149,9 +150,9 @@ async def process_chip_action(request: ChipActionRequest):
     except Exception as e:
         # Fallback jika terjadi rate limit / 429 pada API Gemini
         content_fallback = {
-            "another_analogy": f"Analogi alternatif lain: Bayangkan {request.concept_id} seperti sistem penerimaan tamu di gedung perkantoran...",
-            "breakdown_term": f"Penjelasan istilah '{request.selected_text or request.concept_id}': Ini mengacu pada mekanisme pengaturan lalu lintas data secara aman.",
-            "mini_retest": f"Pertanyaan Uji Ulang Mini: Jika terjadi lonjakan beban data 2x lipat, apa langkah pertama yang dilakukan sistem?"
+            "another_analogy": f"Analogi alternatif lain: Bayangkan {c_name} seperti sistem resepsionis dan kurir di gedung perkantoran besar. Resepsionis memastikan setiap dokumen diarahkan ke nomor ruangan (port) yang tepat tanpa ada dokumen yang tersangkut.",
+            "breakdown_term": f"Penjelasan istilah '{request.selected_text or c_name}': Istilah ini mengacu pada lapisan jaringan yang bertugas membagi data menjadi segmen-segmen kecil, memberikan pengalamatan port, dan mengontrol kelancaran transmisi data secara end-to-end.",
+            "mini_retest": f"Pertanyaan Uji Ulang Mini: Jika terjadi lonjakan beban data 2x lipat pada sistem, apa langkah pertama yang dilakukan {c_name}?"
         }.get(request.chip_id, "Penjelasan bantuan tambahan.")
 
         return ChipActionResponse(
@@ -160,4 +161,3 @@ async def process_chip_action(request: ChipActionRequest):
             turns_remaining=turns_remaining,
             suggest_retest=suggest_retest
         )
-
