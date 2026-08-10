@@ -1,5 +1,7 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from app.config import settings
 from app.endpoints import extract_concepts, generate_questions, dialogue, score, remedial
 
@@ -26,6 +28,17 @@ app.include_router(dialogue.router)
 app.include_router(score.router)
 app.include_router(remedial.router)
 
+@app.get("/playground", response_class=HTMLResponse)
+def get_playground():
+    """
+    Endpoint Visual Playground untuk testing interaktif 5 Stage Pipeline Nalar AI Service di Browser.
+    """
+    playground_path = os.path.join(os.path.dirname(__file__), "static/playground.html")
+    if os.path.exists(playground_path):
+        with open(playground_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Playground HTML file tidak ditemukan.</h1>"
+
 @app.get("/")
 def read_root():
     """
@@ -35,8 +48,10 @@ def read_root():
         "status": "online",
         "service": "Nalar AI Service",
         "model_default": settings.DEFAULT_LLM_MODEL,
-        "environment": settings.ENVIRONMENT
+        "environment": settings.ENVIRONMENT,
+        "playground_url": "http://127.0.0.1:8000/playground"
     }
+
 
 @app.get("/health")
 def health_check():
