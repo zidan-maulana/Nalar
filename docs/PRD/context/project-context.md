@@ -57,8 +57,8 @@ Kompetitor global (Trainexus, AiLearn360, Probe, Viva Master) sudah punya mekani
 | Anggota | Fokus |
 |---|---|
 | Zidan | AI: concept extraction, question generation, adaptive dialogue engine, scoring, confidence calibration |
-| Lukman & Bule | Backend: core (DB, API, concept graph, rubric, scoring) dan Mode Dosen (auth, consent, multi-kelas, dashboard data) |
-| Kanjut & Delon | Frontend: flow mahasiswa (upload, sesi tanya-jawab, hasil) dan dashboard dosen + visualisasi |
+| Lukman & Haikal | Backend: core (DB, API, concept graph, rubric, scoring) dan Mode Dosen (auth, consent, multi-kelas, dashboard data) |
+| Andika & Mahardika | Frontend: flow mahasiswa (upload, sesi tanya-jawab, hasil) dan dashboard dosen + visualisasi |
 | Thomas | UI/UX: wireframe, flow, persona/tone AI examiner |
 
 ## 10. Dokumen Terkait

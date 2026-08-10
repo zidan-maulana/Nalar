@@ -1,7 +1,7 @@
 # PRD: Understanding Depth Score
 
 **Status:** Draft
-**Owner:** Zidan (AI) + Lukman (BE) + Delon (FE)
+**Owner:** Zidan (AI) + Lukman (BE) + Mahardika (FE)
 **Terakhir diupdate:** [tanggal]
 
 ## 1. Overview & Goals

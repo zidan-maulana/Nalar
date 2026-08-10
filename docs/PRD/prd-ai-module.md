@@ -26,7 +26,7 @@ Modul ini adalah "otak" dari Nalar: membaca materi kuliah, mengekstrak konsep, m
 
 ## 3. Arsitektur Layanan
 
-- Modul AI berjalan sebagai service Python terpisah (bukan menyatu dengan backend utama Lukman/Bule), berkomunikasi lewat REST endpoint sesuai `api-contract.md`
+- Modul AI berjalan sebagai service Python terpisah (bukan menyatu dengan backend utama Lukman/Haikal), berkomunikasi lewat REST endpoint sesuai `api-contract.md`
 - Data hasil tiap stage disimpan langsung ke Postgres (bukan cuma di memory), sesuai `db-schema.md`
 - ADK Session cuma dipakai sebagai working memory selama satu sesi tanya-jawab per konsep berlangsung. Begitu satu konsep selesai dievaluasi, hasil finalnya di-push ke Postgres
 

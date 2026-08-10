@@ -118,8 +118,8 @@ Buka browser di `http://localhost:8000/docs` untuk membuka dokumentasi interakti
 | Anggota Tim | Peran & Fokus |
 |---|---|
 | **Zidan** | **AI Engineering**: Concept Extraction, Rubric Gen, Adaptive Engine, Scoring & Calibration |
-| **Lukman & Bule** | **Backend Engineering**: Core Database, Supabase Auth, REST API Gateway, Mode Dosen |
-| **Kanjut & Delon** | **Frontend Engineering**: Flow Mahasiswa, UI Tanya-Jawab, Gap Radar & Dashboard |
+| **Lukman & Haikal** | **Backend Engineering**: Core Database, Supabase Auth, REST API Gateway, Mode Dosen |
+| **Andika & Mahardika** | **Frontend Engineering**: Flow Mahasiswa, UI Tanya-Jawab, Gap Radar & Dashboard |
 | **Thomas** | **UI/UX Design**: Wireframe, Design System, & Persona AI Examiner |
 
 ---

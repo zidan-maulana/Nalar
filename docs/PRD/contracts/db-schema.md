@@ -1,7 +1,7 @@
 # DB Schema (PostgreSQL / Supabase)
 
 **Status:** Active
-**Owner:** Lukman & Bule (Backend)
+**Owner:** Lukman & Haikal (Backend)
 **Terakhir diupdate:** 2026-08-10
 
 Dokumen ini mendefinisikan skema database PostgreSQL di Supabase. Database ini adalah **Single Source of Truth** untuk aplikasi Nalar.

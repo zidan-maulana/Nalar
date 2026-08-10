@@ -106,8 +106,8 @@ Materi berbasis rumus dan angka butuh penyesuaian pipeline:
 | Anggota | Fokus |
 |---|---|
 | Zidan | AI: concept extraction, question generation, adaptive dialogue engine, scoring + confidence calibration |
-| Lukman & Bule | Backend: satu fokus ke core (DB, API, concept graph, rubric, scoring), satu fokus ke Mode Dosen (auth, consent, multi-kelas, dashboard data) |
-| Kanjut & Delon | Frontend: satu fokus ke flow mahasiswa (upload, sesi tanya-jawab, hasil), satu fokus ke dashboard dosen + visualisasi (Gap Radar, confidence graph) |
+| Lukman & Haikal | Backend: satu fokus ke core (DB, API, concept graph, rubric, scoring), satu fokus ke Mode Dosen (auth, consent, multi-kelas, dashboard data) |
+| Andika & Mahardika | Frontend: satu fokus ke flow mahasiswa (upload, sesi tanya-jawab, hasil), satu fokus ke dashboard dosen + visualisasi (Gap Radar, confidence graph) |
 | Thomas | UI/UX: wireframe, flow, persona/tone AI examiner, berjalan paralel dari awal bareng Zidan |
 
 **Catatan prioritas:**

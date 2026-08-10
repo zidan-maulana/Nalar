@@ -1,7 +1,7 @@
 # PRD: Confidence Calibration
 
 **Status:** Draft
-**Owner:** Zidan (AI) + Delon (FE)
+**Owner:** Zidan (AI) + Mahardika (FE)
 **Terakhir diupdate:** [tanggal]
 
 ## 1. Overview & Goals

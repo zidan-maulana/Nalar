@@ -1,7 +1,7 @@
 # API Contract
 
 **Status:** Active
-**Owner:** Lukman & Bule (Backend)
+**Owner:** Lukman & Haikal (Backend)
 **Terakhir diupdate:** 2026-08-10
 
 Dokumen ini adalah sumber kebenaran tunggal untuk seluruh endpoint API di Nalar (baik API Backend Utama untuk Frontend maupun API Internal AI Service).

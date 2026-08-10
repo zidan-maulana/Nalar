@@ -9,12 +9,12 @@
 4. Setelah kelar, update `project-context.md` dan `ai-output-schema.md` jadi versi final sesuai yang beneran dibangun (bukan lagi draft rencana)
 
 ## Tahap 2: Handoff ke Tim
-5. Oper `project-context.md` + `ai-output-schema.md` (+ `db-schema.md` kalau relevan) ke Lukman, Bule, Kanjut, Delon, Thomas
+5. Oper `project-context.md` + `ai-output-schema.md` (+ `db-schema.md` kalau relevan) ke Lukman, Haikal, Andika, Mahardika, Thomas
 6. Tiap orang upload dua file itu ke AI mereka, generate PRD modul masing-masing pakai template prompt di `how-to-draft-prd-with-ai.md` (termasuk instruksi audit gap yang udah ditambahin)
 7. Tiap orang review hasil PRD dari AI sebelum dianggap final (cek bagian `[ASUMSI]`, requirement harus jelas dan bisa dites)
 
 ## Tahap 3: Development Paralel
-8. Lukman, Bule, Kanjut, Delon, Thomas mulai development sesuai PRD masing-masing
+8. Lukman, Haikal, Andika, Mahardika, Thomas mulai development sesuai PRD masing-masing
 9. Kalau nemu kebutuhan data tambahan yang gak ada di skema, catat di `schema-change-log.md` dan kabarin Zidan, bukan dianggap masalah
 10. `agent-conventions.md` dilengkapin begitu struktur folder repo dan konvensi coding disepakatin bareng
 11. Pastikan logging data sesi (jawaban, skor, evidence trail) aktif dari awal buat keperluan validasi nanti

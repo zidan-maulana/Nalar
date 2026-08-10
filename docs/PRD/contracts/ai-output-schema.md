@@ -112,4 +112,4 @@ Dokumen ini mendefinisikan format data yang dihasilkan oleh setiap tahap pipelin
 ## Aturan Perubahan Skema
 Setiap perubahan field atau tipe data pada dokumen ini **WAJIB**:
 1. Dicatat terlebih dahulu pada [schema-change-log.md](file:///c:/Documents/Projects/Nalar/docs/PRD/context/schema-change-log.md).
-2. Diinformasikan ke owner Backend (Lukman/Bule) dan Frontend (Kanjut/Delon) sebelum kode di-update.
+2. Diinformasikan ke owner Backend (Lukman/Haikal) dan Frontend (Andika/Mahardika) sebelum kode di-update.
