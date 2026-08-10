@@ -1,17 +1,10 @@
-# Environment Variables
-.env
-.env.local
-*.env
+# Local Personal Files
+HANDOVER_AND_TEAM_GUIDE.md
+AI_SYSTEM_FLOW_PRESENTATION.md
 
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
 .venv/
 venv/
-ENV/
-*.log
-
-# OS Generated Files
-.DS_Store
-Thumbs.db
+.env
