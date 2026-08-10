@@ -379,6 +379,7 @@
                 document.getElementById('concept-def-display').innerText = state.concept.definition;
                 document.getElementById('section-s2').classList.remove('hidden');
                 setPillActive(2);
+                document.getElementById('section-s2').scrollIntoView({ behavior: 'smooth' });
             } catch (e) {
                 alert('Gagal Stage 1: ' + e.message);
             } finally {
@@ -405,6 +406,8 @@
                 });
                 const data = await res.json();
                 state.rubric = data;
+                state.currentLevel = 'definisi';
+                state.roundsUsed = 1;
 
                 document.getElementById('out-s2').classList.remove('hidden');
                 document.getElementById('out-s2').innerHTML = `
@@ -415,8 +418,15 @@
                 `;
 
                 document.getElementById('exam-question-text').innerText = state.rubric.opening_question;
+                document.getElementById('user-answer-input').value = '';
+                document.getElementById('out-s3').classList.add('hidden');
                 document.getElementById('section-s3').classList.remove('hidden');
                 setPillActive(3);
+
+                setTimeout(() => {
+                    document.getElementById('section-s3').scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('user-answer-input').focus();
+                }, 150);
             } catch (e) {
                 alert('Gagal Stage 2: ' + e.message);
             } finally {
@@ -452,7 +462,6 @@
                 state.roundsUsed = data.rounds_used;
                 state.currentLevel = data.current_level;
 
-                // Update pertanyaan aktif di kotak atas agar pengguna sadar masuk ke soal berikutnya!
                 if (data.next_question) {
                     document.getElementById('exam-question-text').innerText = data.next_question;
                 }
@@ -471,6 +480,9 @@
                 if (data.is_completed) {
                     document.getElementById('section-s4').classList.remove('hidden');
                     setPillActive(4);
+                    setTimeout(() => {
+                        document.getElementById('section-s4').scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
                 } else {
                     document.getElementById('user-answer-input').value = '';
                     document.getElementById('user-answer-input').focus();
@@ -514,10 +526,15 @@
 
                 document.getElementById('section-s5').classList.remove('hidden');
                 setPillActive(5);
+                setTimeout(() => {
+                    document.getElementById('section-s5').scrollIntoView({ behavior: 'smooth' });
+                }, 150);
             } catch (e) {
                 alert('Gagal Stage 4: ' + e.message);
             } finally {
                 btn.disabled = false;
+            }
+        }
             }
         }
 
