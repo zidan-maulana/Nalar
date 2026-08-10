@@ -62,11 +62,19 @@ def calculate_score(request: ScoreRequest) -> ScoreResponse:
             )
     elif delta < -threshold:
         calibration_status = "underconfident"
-        summary_reason = (
-            f"Pengguna merasa kurang yakin ({request.confidence_input}/5 = {confidence_normalized:.0f}%), "
-            f"padahal pemahamannya sudah mencapai level '{request.level_reached.capitalize()}' ({depth_score:.0f}%). "
-            f"Pengguna perlu lebih percaya diri dengan pemahamannya."
-        )
+        if depth_score >= 80.0:
+            summary_reason = (
+                f"Luar biasa! Pemahamanmu sebenarnya sudah sangat tinggi di level '{request.level_reached.capitalize()}' ({depth_score:.0f}%), "
+                f"meskipun kamu merasa ragu-ragu ({request.confidence_input}/5 = {confidence_normalized:.0f}%). "
+                f"Kamu hebat, percayalah pada kemampuan analisismu!"
+            )
+        else:
+            summary_reason = (
+                f"Pengguna merasa kurang yakin ({request.confidence_input}/5 = {confidence_normalized:.0f}%), "
+                f"padahal pemahamannya sudah mencapai level '{request.level_reached.capitalize()}' ({depth_score:.0f}%). "
+                f"Pengguna perlu lebih percaya diri dengan pemahamannya."
+            )
+
     else:
         calibration_status = "accurate"
         if request.level_reached == "none":

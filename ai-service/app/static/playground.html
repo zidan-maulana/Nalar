@@ -278,9 +278,14 @@
             </div>
             <label for="user-answer-input">Jawaban Mahasiswa</label>
             <textarea id="user-answer-input" rows="3" placeholder="Ketik jawabanmu di sini... (Contoh: Congestion control itu untuk membatasi pengirim agar penerima tidak penuh)"></textarea>
-            <button id="btn-s3" onclick="runStage3()">
-                <span>Kirim Jawaban ke Dosen AI</span>
-            </button>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button id="btn-s3" onclick="runStage3()">
+                    <span>Kirim Jawaban ke Dosen AI</span>
+                </button>
+                <button type="button" style="background: rgba(255, 255, 255, 0.1); border: 1px solid var(--card-border);" onclick="resetExamSession()">
+                    <span>🔄 Ulangi Sesi Ujian</span>
+                </button>
+            </div>
             <div id="out-s3" class="hidden" style="margin-top: 1.5rem;"></div>
         </div>
 
@@ -587,14 +592,51 @@
                 const data = await res.json();
                 state.turnCount++;
 
+                let retestBtnHtml = '';
+                if (data.suggest_retest || data.turns_remaining <= 0) {
+                    // Matikan semua chip button jika kuota habis
+                    const chipBtns = document.querySelectorAll('.chip-btn');
+                    chipBtns.forEach(btn => btn.disabled = true);
+
+                    retestBtnHtml = `
+                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(245, 158, 11, 0.15); border: 1px solid var(--accent-amber); border-radius: 0.75rem;">
+                            <div style="font-weight: 700; color: var(--accent-amber); margin-bottom: 0.5rem;">⚠️ Kuota Interaksi Mode Belajar Habis (3/3 Turns)</div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Membaca penjelasan saja tidak cukup. Mari buktikan pemahaman barumu lewat Uji Ulang Mini!</p>
+                            <button style="background: linear-gradient(135deg, var(--accent-amber), var(--primary)); border: none;" onclick="resetExamSession()">
+                                <span>🧪 Mulai Uji Ulang Mini (Re-Test Mode)</span>
+                            </button>
+                        </div>
+                    `;
+                }
+
                 box.innerHTML = `
-                    <div class="layer-title">💡 Respon Action Chip (${chipId}) - Sisa Turn: ${data.turns_remaining}</div>
-                    <div>${data.content}</div>
-                    ${data.suggest_retest ? '<div style="margin-top: 0.5rem; color: var(--accent-amber); font-weight:700;">⚠️ Kuota interaksi habis. Mari lakukan Re-Test Uji Pemahaman!</div>' : ''}
+                    <div class="layer-title">💡 Respon Action Chip (${chipId}) - Sisa Kuota Interaksi: ${data.turns_remaining}</div>
+                    <div style="line-height: 1.6;">${data.content}</div>
+                    ${retestBtnHtml}
                 `;
             } catch (e) {
                 alert('Gagal Action Chip: ' + e.message);
             }
+        }
+
+        function resetExamSession() {
+            state.roundsUsed = 1;
+            state.evaluation = null;
+            state.turnCount = 1;
+
+            document.getElementById('user-answer-input').value = '';
+            document.getElementById('out-s3').classList.add('hidden');
+            document.getElementById('section-s4').classList.add('hidden');
+            document.getElementById('out-s4').classList.add('hidden');
+            document.getElementById('section-s5').classList.add('hidden');
+            document.getElementById('out-s5').classList.add('hidden');
+
+            const chipBtns = document.querySelectorAll('.chip-btn');
+            chipBtns.forEach(btn => btn.disabled = false);
+
+            setPillActive(3);
+            document.getElementById('section-s3').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('user-answer-input').focus();
         }
     </script>
 </body>
