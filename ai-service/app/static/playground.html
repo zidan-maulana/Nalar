@@ -253,11 +253,15 @@
         <!-- STAGE 2 -->
         <div id="section-s2" class="card hidden">
             <div class="card-title">Stage 2: Master Rubric & Question Generator</div>
-            <div class="layer-box">
-                <div class="layer-title">Konsep Terpilih</div>
-                <div id="concept-name-display" style="font-weight: 600;"></div>
-                <div id="concept-def-display" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;"></div>
-            </div>
+            <label for="concept-id-input">ID Konsep</label>
+            <input type="text" id="concept-id-input" value="c-001" placeholder="Contoh: c-001">
+
+            <label for="concept-name-input">Nama Konsep</label>
+            <input type="text" id="concept-name-input" placeholder="Contoh: Transport Layer (Bab 3)">
+
+            <label for="concept-def-input">Definisi Konsep</label>
+            <textarea id="concept-def-input" rows="2" placeholder="Definisi konsep..."></textarea>
+
             <button id="btn-s2" onclick="runStage2()">
                 <span>Generate Rubrik & Soal Ujian</span>
             </button>
@@ -375,8 +379,10 @@
                     </div>
                 `;
 
-                document.getElementById('concept-name-display').innerText = state.concept.name;
-                document.getElementById('concept-def-display').innerText = state.concept.definition;
+                document.getElementById('concept-id-input').value = state.concept.concept_id;
+                document.getElementById('concept-name-input').value = state.concept.name;
+                document.getElementById('concept-def-input').value = state.concept.definition;
+
                 document.getElementById('section-s2').classList.remove('hidden');
                 setPillActive(2);
                 document.getElementById('section-s2').scrollIntoView({ behavior: 'smooth' });
@@ -393,14 +399,20 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="loader"></span> Menyusun Master Rubrik Penilaian...';
 
+            const cId = document.getElementById('concept-id-input').value || 'c-001';
+            const cName = document.getElementById('concept-name-input').value || 'Transport Layer (Bab 3)';
+            const cDef = document.getElementById('concept-def-input').value || 'Lapisan keempat model OSI';
+
+            state.concept = { concept_id: cId, name: cName, definition: cDef };
+
             try {
                 const res = await fetch(`${API_BASE}/generate-questions`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        concept_id: state.concept.concept_id,
-                        name: state.concept.name,
-                        definition: state.concept.definition,
+                        concept_id: cId,
+                        name: cName,
+                        definition: cDef,
                         source_reference: 'Slide 5'
                     })
                 });
