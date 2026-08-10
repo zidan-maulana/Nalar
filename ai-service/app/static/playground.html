@@ -405,7 +405,14 @@
                         source_reference: 'Slide 12'
                     })
                 });
-                state.rubric = await res.json();
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.detail || `HTTP ${res.status}`);
+                }
+                if (!data.opening_question) {
+                    throw new Error("Gagal membuat pertanyaan pembuka.");
+                }
+                state.rubric = data;
 
                 document.getElementById('out-s2').classList.remove('hidden');
                 document.getElementById('out-s2').innerHTML = `
