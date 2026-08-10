@@ -6,7 +6,7 @@ class TurnEvaluationDetail(BaseModel):
     """
     Rincian evaluasi terhadap satu giliran jawaban mahasiswa di Stage 3.
     """
-    level_reached: Literal["definisi", "sebab-akibat", "transfer"] = Field(
+    level_reached: Literal["none", "definisi", "sebab-akibat", "transfer"] = Field(
         ...,
         description="Level tertinggi yang saat ini diakui tercapai oleh mahasiswa"
     )

@@ -127,7 +127,10 @@ def process_dialogue_turn(request: DialogueTurnRequest) -> DialogueTurnResponse:
             next_question = None
 
     # Level tertinggi yang diakui tercapai secara resmi
-    highest_level_reached = request.current_level if not eval_res.passed_current_level else new_level
+    if eval_res.passed_current_level:
+        highest_level_reached = request.current_level
+    else:
+        highest_level_reached = level_order[curr_idx - 1] if curr_idx > 0 else "none"
 
     return DialogueTurnResponse(
         session_id=request.session_id,
@@ -143,3 +146,4 @@ def process_dialogue_turn(request: DialogueTurnRequest) -> DialogueTurnResponse:
             criteria_missing=eval_res.criteria_missing
         )
     )
+

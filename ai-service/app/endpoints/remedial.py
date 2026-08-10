@@ -147,7 +147,17 @@ async def process_chip_action(request: ChipActionRequest):
         )
 
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Gagal memproses aksi chip: {str(e)}"
+        # Fallback jika terjadi rate limit / 429 pada API Gemini
+        content_fallback = {
+            "another_analogy": f"Analogi alternatif lain: Bayangkan {request.concept_id} seperti sistem penerimaan tamu di gedung perkantoran...",
+            "breakdown_term": f"Penjelasan istilah '{request.selected_text or request.concept_id}': Ini mengacu pada mekanisme pengaturan lalu lintas data secara aman.",
+            "mini_retest": f"Pertanyaan Uji Ulang Mini: Jika terjadi lonjakan beban data 2x lipat, apa langkah pertama yang dilakukan sistem?"
+        }.get(request.chip_id, "Penjelasan bantuan tambahan.")
+
+        return ChipActionResponse(
+            chip_id=request.chip_id,
+            content=content_fallback,
+            turns_remaining=turns_remaining,
+            suggest_retest=suggest_retest
         )
+

@@ -12,7 +12,7 @@ class ScoreRequest(BaseModel):
         description="Nilai rasa yakin yang diisi pengguna (skala 1-5)",
         example=5
     )
-    level_reached: Literal["definisi", "sebab-akibat", "transfer"] = Field(
+    level_reached: Literal["none", "definisi", "sebab-akibat", "transfer"] = Field(
         ...,
         description="Level tertinggi Bloom's Taxonomy yang berhasil dicapai pengguna di Stage 3"
     )

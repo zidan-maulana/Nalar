@@ -48,11 +48,18 @@ def calculate_score(request: ScoreRequest) -> ScoreResponse:
 
     if delta > threshold:
         calibration_status = "overconfident"
-        summary_reason = (
-            f"Pengguna merasa sangat yakin ({request.confidence_input}/5 = {confidence_normalized:.0f}%), "
-            f"namun pemahaman aktual baru mencapai level '{request.level_reached.capitalize()}' ({depth_score:.0f}%). "
-            f"Ini berpotensi berbahaya karena pengguna tidak sadar perlu belajar lagi."
-        )
+        if request.level_reached == "none":
+            summary_reason = (
+                f"Pengguna merasa yakin ({request.confidence_input}/5 = {confidence_normalized:.0f}%), "
+                f"padahal pemahaman aktual belum mencapai tingkat Definisi sekalipun (0%). "
+                f"Ini berpotensi berbahaya karena terjadi overconfidence."
+            )
+        else:
+            summary_reason = (
+                f"Pengguna merasa sangat yakin ({request.confidence_input}/5 = {confidence_normalized:.0f}%), "
+                f"namun pemahaman aktual baru mencapai level '{request.level_reached.capitalize()}' ({depth_score:.0f}%). "
+                f"Ini berpotensi berbahaya karena pengguna tidak sadar perlu belajar lagi."
+            )
     elif delta < -threshold:
         calibration_status = "underconfident"
         summary_reason = (
@@ -62,10 +69,17 @@ def calculate_score(request: ScoreRequest) -> ScoreResponse:
         )
     else:
         calibration_status = "accurate"
-        summary_reason = (
-            f"Penilaian diri pengguna ({request.confidence_input}/5 = {confidence_normalized:.0f}%) sangat akurat "
-            f"dan sejalan dengan pemahaman aktual di level '{request.level_reached.capitalize()}' ({depth_score:.0f}%)."
-        )
+        if request.level_reached == "none":
+            summary_reason = (
+                f"Penilaian diri pengguna ({request.confidence_input}/5 = {confidence_normalized:.0f}%) sangat akurat "
+                f"karena memang belum menguasai konsep ini (0%). Pengguna sadar diri perlunya belajar dari awal."
+            )
+        else:
+            summary_reason = (
+                f"Penilaian diri pengguna ({request.confidence_input}/5 = {confidence_normalized:.0f}%) sangat akurat "
+                f"dan sejalan dengan pemahaman aktual di level '{request.level_reached.capitalize()}' ({depth_score:.0f}%)."
+            )
+
 
     return ScoreResponse(
         session_id=request.session_id,
