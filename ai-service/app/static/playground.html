@@ -440,23 +440,30 @@
                     body: JSON.stringify({
                         session_id: 'sess-playground',
                         concept_id: state.concept.concept_id,
+                        concept_name: state.concept.name,
                         user_answer: answer,
-                        current_level: 'definisi',
-                        rounds_used: 1,
+                        current_level: state.currentLevel || 'definisi',
+                        rounds_used: state.roundsUsed || 1,
                         rubric: state.rubric
                     })
                 });
                 const data = await res.json();
                 state.evaluation = data.evaluation;
                 state.roundsUsed = data.rounds_used;
+                state.currentLevel = data.current_level;
+
+                // Update pertanyaan aktif di kotak atas agar pengguna sadar masuk ke soal berikutnya!
+                if (data.next_question) {
+                    document.getElementById('exam-question-text').innerText = data.next_question;
+                }
 
                 document.getElementById('out-s3').classList.remove('hidden');
                 document.getElementById('out-s3').innerHTML = `
                     <div class="layer-box">
-                        <div class="layer-title">Respon Dosen AI</div>
+                        <div class="layer-title">Respon Evaluasi AI (Level Terbukti: ${data.evaluation.level_reached.toUpperCase()})</div>
                         <div>${data.next_question || 'Sesi Ujian Selesai. Silakan lanjut ke Stage 4.'}</div>
                         <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                            Level Terbukti: ${data.evaluation.level_reached.toUpperCase()} | Evidence Trail: "${data.evaluation.evidence_trail[0] || '-'}"
+                            Level Lanjutan Aktif: <strong>${data.current_level.toUpperCase()}</strong> | Evidence Trail: "${data.evaluation.evidence_trail[0] || '-'}"
                         </div>
                     </div>
                 `;
@@ -603,7 +610,12 @@
         function resetExamSession() {
             state.roundsUsed = 1;
             state.evaluation = null;
+            state.currentLevel = 'definisi';
             state.turnCount = 1;
+
+            if (state.rubric && state.rubric.opening_question) {
+                document.getElementById('exam-question-text').innerText = state.rubric.opening_question;
+            }
 
             document.getElementById('user-answer-input').value = '';
             document.getElementById('out-s3').classList.add('hidden');

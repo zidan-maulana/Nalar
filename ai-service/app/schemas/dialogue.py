@@ -30,6 +30,7 @@ class DialogueTurnRequest(BaseModel):
     """
     session_id: str = Field(..., description="ID sesi pengujian aktif")
     concept_id: str = Field(..., description="ID konsep yang sedang diuji")
+    concept_name: Optional[str] = Field(None, description="Nama konsep (contoh: 'Transport Layer (Bab 3)')")
     user_answer: str = Field(..., description="Teks jawaban dari mahasiswa")
     current_level: Literal["definisi", "sebab-akibat", "transfer"] = Field(
         "definisi",

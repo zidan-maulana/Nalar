@@ -135,7 +135,7 @@ def process_dialogue_turn(request: DialogueTurnRequest) -> DialogueTurnResponse:
         highest_level_reached = level_order[curr_idx - 1] if curr_idx > 0 else "none"
 
     else:
-        # VALID_ATTEMPT -> Evaluasi normal
+        c_display = request.concept_name or (request.rubric.concept_name if hasattr(request.rubric, 'concept_name') and request.rubric.concept_name else request.concept_id)
         if eval_res.user_is_confused and eval_res.simplified_rephrased_question:
             next_question = eval_res.simplified_rephrased_question
             new_rounds += 1
@@ -143,7 +143,7 @@ def process_dialogue_turn(request: DialogueTurnRequest) -> DialogueTurnResponse:
             if curr_idx < len(level_order) - 1:
                 new_level = level_order[curr_idx + 1]
                 new_rounds = 1
-                next_question = f"Bagus! Sekarang untuk level {new_level.upper()}: Bisakah kamu menganalisis lebih jauh mengenai {request.rubric.concept_id} dalam konteks {new_level}?"
+                next_question = f"Bagus! Pemahamanmu di level {request.current_level.upper()} sangat baik. Sekarang untuk level {new_level.upper()}: Bisakah kamu menganalisis lebih jauh mengenai {c_display} dalam konteks {new_level}?"
             else:
                 is_completed = True
                 next_question = None
