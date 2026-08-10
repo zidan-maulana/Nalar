@@ -85,15 +85,28 @@ def process_dialogue_turn(request: DialogueTurnRequest) -> DialogueTurnResponse:
         eval_res = InternalLLMEvalResult.model_validate_json(response.text)
 
     except Exception as e:
-        # Fallback jika terjadi error LLM
+        # Fallback cerdas jika terjadi rate limit 429 / error LLM
+        user_text = request.user_answer.lower()
+        if any(w in user_text for w in ["gatau", "tidak tahu", "pass", "skip", "gelap", "gak tau", "ndak tahu"]):
+            cat = "EXPLICIT_REFUSAL"
+            passed = False
+        elif len(user_text.strip()) < 3 or any(w in user_text for w in ["asdf", "qwerty", "1234", "zzzz"]):
+            cat = "NONSENSE_OR_OFFTOPIC"
+            passed = False
+        else:
+            cat = "VALID_ATTEMPT"
+            # Cek apakah jawaban mengandung kata kunci teknis
+            passed = any(w in user_text for w in ["l4", "layer 4", "port", "multiplex", "flow control", "transport", "tcp", "udp", "ack", "buffer", "overflow", "retrans"])
+
         eval_res = InternalLLMEvalResult(
-            input_category="EXPLICIT_REFUSAL" if "gatau" in request.user_answer.lower() or "tidak" in request.user_answer.lower() else "NONSENSE_OR_OFFTOPIC",
-            passed_current_level=False,
+            input_category=cat,
+            passed_current_level=passed,
             evidence_trail=[f"Jawaban pengguna: '{request.user_answer}'"],
-            criteria_met=[],
-            criteria_missing=criteria_list,
+            criteria_met=criteria_list[:1] if passed else [],
+            criteria_missing=[] if passed else criteria_list,
             user_is_confused=False
         )
+
 
     # 2. Logika Penentuan State LoopAgent (State Transition Hardened)
     level_order = ["definisi", "sebab-akibat", "transfer"]
