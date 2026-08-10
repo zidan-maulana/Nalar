@@ -624,14 +624,42 @@
                     `;
                 }
 
+                let miniRetestInputHtml = '';
+                if (chipId === 'mini_retest') {
+                    miniRetestInputHtml = `
+                        <div style="margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid var(--border-color);">
+                            <label for="mini-retest-input">Jawaban Uji Ulang Mini Mahasiswa</label>
+                            <textarea id="mini-retest-input" rows="3" placeholder="Ketik jawaban uji ulang minimu di sini untuk memvalidasi pemahaman baru..."></textarea>
+                            <button onclick="submitMiniRetest()">
+                                <span>Kirim Jawaban Uji Ulang Mini</span>
+                            </button>
+                        </div>
+                    `;
+                }
+
                 box.innerHTML = `
                     <div class="layer-title">Respon Action Chip (${chipId}) - Sisa Kuota: ${data.turns_remaining}</div>
-                    <div style="font-size: 0.9rem;">${data.content}</div>
+                    <div style="font-size: 0.9rem;" id="mini-retest-q-text">${data.content}</div>
+                    ${miniRetestInputHtml}
                     ${retestBtnHtml}
                 `;
             } catch (e) {
                 alert('Gagal Action Chip: ' + e.message);
             }
+        }
+
+        function submitMiniRetest() {
+            const answer = document.getElementById('mini-retest-input').value;
+            if (!answer) return alert('Ketik jawaban uji ulang minimu terlebih dahulu!');
+
+            const qText = document.getElementById('mini-retest-q-text').innerText;
+            document.getElementById('exam-question-text').innerText = qText;
+            document.getElementById('user-answer-input').value = answer;
+            state.roundsUsed = 1;
+            state.currentLevel = 'definisi';
+
+            document.getElementById('section-s3').scrollIntoView({ behavior: 'smooth' });
+            runStage3();
         }
 
         function resetExamSession() {
