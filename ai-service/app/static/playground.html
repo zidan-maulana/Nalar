@@ -3,296 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalar AI Service - Testing Playground</title>
+    <title>Nalar AI Service - API Testing Sandbox</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent-cyan: #06b6d4;
-            --accent-pink: #ec4899;
-            --accent-amber: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --success: #10b981;
-            --danger: #ef4444;
+            --bg-color: #090d16;
+            --surface-color: #111827;
+            --border-color: #1f2937;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 2rem;
+            padding: 2.5rem 1.5rem;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #818cf8, #c084fc, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+            margin-bottom: 0.25rem;
         }
 
         header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         .step-stepper {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 1rem;
-            border-radius: 1rem;
-            backdrop-filter: blur(12px);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
         }
 
         .step-pill {
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.85rem;
+            padding: 0.5rem 0.85rem;
+            border-radius: 0.375rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
 
         .step-pill.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #ffffff;
         }
 
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 1.25rem;
-            padding: 2rem;
-            backdrop-filter: blur(16px);
-            margin-bottom: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
         }
 
         .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            letter-spacing: -0.01em;
         }
 
         label {
             display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
         }
 
         input[type="text"], textarea, select {
             width: 100%;
-            padding: 0.85rem 1.2rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 0.75rem;
-            color: white;
-            font-size: 1rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            padding: 0.75rem 0.85rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
             margin-bottom: 1rem;
-            transition: border-color 0.2s;
+            outline: none;
+            transition: border-color 0.15s ease;
         }
 
         input[type="text"]:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
+            border-color: var(--primary-color);
         }
 
         button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border: none;
-            padding: 0.85rem 1.75rem;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 0.75rem;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: 1px solid var(--primary-color);
+            border-radius: 0.375rem;
+            padding: 0.65rem 1.15rem;
+            font-size: 0.875rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background-color 0.15s ease;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.5);
+            background-color: var(--primary-hover);
         }
 
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .layer-box {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .layer-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .chip-group {
             display: flex;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .chip-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .chip-btn:hover {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: var(--primary);
-            transform: translateY(-1px);
+            background: var(--border-color);
+        }
+
+        .loader {
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            animation: spin 0.6s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .badge {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.8rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
+            border: 1px solid var(--border-color);
         }
-
-        .badge-overconfident { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
-        .badge-accurate { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981; }
-        .badge-underconfident { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid #f59e0b; }
-
-        .loader {
-            display: inline-block;
-            width: 1.2rem;
-            height: 1.2rem;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .layer-box {
-            background: rgba(15, 23, 42, 0.4);
-            border-left: 4px solid var(--primary);
-            padding: 1.25rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .layer-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🧠 Nalar AI Service Playground</h1>
-            <p>Uji Coba Interaktif 5 Stage Pipeline AI Nalar (Live Gemini 3.6 Flash)</p>
+            <h1>Nalar AI Microservice - API Testing Sandbox</h1>
+            <p>Interactive verification playground for Stage 1 to Stage 5 backend contracts.</p>
         </header>
 
         <div class="step-stepper">
-            <div class="step-pill active" id="pill-s1">1. Extractor</div>
-            <div class="step-pill" id="pill-s2">2. Rubric</div>
-            <div class="step-pill" id="pill-s3">3. Exam Mode</div>
-            <div class="step-pill" id="pill-s4">4. Calibration</div>
-            <div class="step-pill" id="pill-s5">5. Remedial</div>
+            <div class="step-pill active" id="pill-1">1. Concept Extraction</div>
+            <div class="step-pill" id="pill-2">2. Question & Rubric</div>
+            <div class="step-pill" id="pill-3">3. Dialogue Engine</div>
+            <div class="step-pill" id="pill-4">4. Calibration Score</div>
+            <div class="step-pill" id="pill-5">5. Diagnostic Remedial</div>
         </div>
 
-        <!-- STAGE 1: CONCEPT EXTRACTION -->
+        <!-- STAGE 1 -->
         <div id="section-s1" class="card">
-            <div class="card-title">📦 Stage 1: Document & Concept Graph Extractor</div>
-            <label for="material-url">URL / File Materi Kuliah (PDF/PPTX)</label>
+            <div class="card-title">Stage 1: Document Concept Extraction</div>
+            <label for="material-url">File Material URL (PDF/Text)</label>
             <input type="text" id="material-url" value="https://storage.supabase.co/materials/jaringan_komputer_bab3.pdf">
             <button id="btn-s1" onclick="runStage1()">
-                <span>Ekstrak Konsep dengan AI</span>
+                <span>Ekstrak Grafik Konsep</span>
             </button>
-            <div id="out-s1" class="hidden" style="margin-top: 1.5rem;"></div>
+            <div id="out-s1" class="hidden" style="margin-top: 1.25rem;"></div>
         </div>
 
-        <!-- STAGE 2: QUESTION & RUBRIC -->
+        <!-- STAGE 2 -->
         <div id="section-s2" class="card hidden">
-            <div class="card-title">📜 Stage 2: Question & Master Rubric Generation</div>
-            <label>Konsep Terpilih</label>
-            <input type="text" id="selected-concept-name" readonly>
+            <div class="card-title">Stage 2: Master Rubric & Question Generator</div>
+            <div class="layer-box">
+                <div class="layer-title">Konsep Terpilih</div>
+                <div id="concept-name-display" style="font-weight: 600;"></div>
+                <div id="concept-def-display" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;"></div>
+            </div>
             <button id="btn-s2" onclick="runStage2()">
-                <span>Buat Rubrik Penilaian & Soal Ujian</span>
+                <span>Generate Rubrik & Soal Ujian</span>
             </button>
-            <div id="out-s2" class="hidden" style="margin-top: 1.5rem;"></div>
+            <div id="out-s2" class="hidden" style="margin-top: 1.25rem;"></div>
         </div>
 
-        <!-- STAGE 3: EXAM INTERROGATION -->
+        <!-- STAGE 3 -->
         <div id="section-s3" class="card hidden">
-            <div class="card-title">🎙️ Stage 3: Adaptive Oral Examiner (Mode Ujian)</div>
-            <div class="layer-box" style="border-left-color: var(--accent-amber);">
+            <div class="card-title">Stage 3: Adaptive Oral Examiner</div>
+            <div class="layer-box">
                 <div class="layer-title">Pertanyaan Dosen AI</div>
-                <div id="exam-question-text" style="font-weight: 600; font-size: 1.05rem;"></div>
+                <div id="exam-question-text" style="font-weight: 600;"></div>
             </div>
             <label for="user-answer-input">Jawaban Mahasiswa</label>
-            <textarea id="user-answer-input" rows="3" placeholder="Ketik jawabanmu di sini... (Contoh: Congestion control itu untuk membatasi pengirim agar penerima tidak penuh)"></textarea>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <textarea id="user-answer-input" rows="3" placeholder="Ketik jawabanmu di sini..."></textarea>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button id="btn-s3" onclick="runStage3()">
-                    <span>Kirim Jawaban ke Dosen AI</span>
+                    <span>Kirim Jawaban</span>
                 </button>
-                <button type="button" style="background: rgba(255, 255, 255, 0.1); border: 1px solid var(--card-border);" onclick="resetExamSession()">
-                    <span>🔄 Ulangi Sesi Ujian</span>
+                <button type="button" class="btn-secondary" onclick="resetExamSession()">
+                    <span>Ulangi Sesi Ujian</span>
                 </button>
             </div>
-            <div id="out-s3" class="hidden" style="margin-top: 1.5rem;"></div>
+            <div id="out-s3" class="hidden" style="margin-top: 1.25rem;"></div>
         </div>
 
-        <!-- STAGE 4: CONFIDENCE & CALIBRATION -->
+        <!-- STAGE 4 -->
         <div id="section-s4" class="card hidden">
-            <div class="card-title">⚖️ Stage 4: Confidence Calibration & Score</div>
-            <label for="confidence-select">Berapa Skala Yakinmu Terhadap Jawaban Tadi? (1 - 5)</label>
+            <div class="card-title">Stage 4: Confidence Calibration & Score</div>
+            <label for="confidence-select">Skala Rasa Yakin Terhadap Jawaban (1 - 5)</label>
             <select id="confidence-select">
                 <option value="5">5/5 - Sangat Yakin (100%)</option>
                 <option value="4">4/5 - Yakin (80%)</option>
@@ -303,35 +298,35 @@
             <button id="btn-s4" onclick="runStage4()">
                 <span>Hitung Depth Score & Kalibrasi</span>
             </button>
-            <div id="out-s4" class="hidden" style="margin-top: 1.5rem;"></div>
+            <div id="out-s4" class="hidden" style="margin-top: 1.25rem;"></div>
         </div>
 
-        <!-- STAGE 5: DIAGNOSTIC REMEDIAL -->
+        <!-- STAGE 5 -->
         <div id="section-s5" class="card hidden">
-            <div class="card-title">💡 Stage 5: Mode Belajar Diagnostik (3-Layer Explanation)</div>
+            <div class="card-title">Stage 5: Diagnostic Remedial Mode</div>
             <button id="btn-s5" onclick="runStage5()">
                 <span>Dapatkan Penjelasan Diagnostik 3-Lapis</span>
             </button>
 
-            <div id="out-s5" class="hidden" style="margin-top: 1.5rem;">
+            <div id="out-s5" class="hidden" style="margin-top: 1.25rem;">
                 <div class="layer-box">
-                    <div class="layer-title">⚓ 1. Mental Anchor (Analogi Dunia Nyata)</div>
+                    <div class="layer-title">1. Mental Anchor (Analogi Dunia Nyata)</div>
                     <div id="s5-analogy"></div>
                 </div>
-                <div class="layer-box" style="border-left-color: var(--accent-pink);">
-                    <div class="layer-title">🎯 2. Dekonstruksi Salah Kaprah (Misconception)</div>
+                <div class="layer-box">
+                    <div class="layer-title">2. Dekonstruksi Misconception</div>
                     <div id="s5-misconception"></div>
                 </div>
-                <div class="layer-box" style="border-left-color: var(--success);">
-                    <div class="layer-title">📚 3. Jembatan Teknis Slide Dosen</div>
+                <div class="layer-box">
+                    <div class="layer-title">3. Jembatan Teknis Slide Dosen</div>
                     <div id="s5-technical"></div>
                 </div>
 
-                <div style="margin-top: 1.5rem;">
+                <div style="margin-top: 1.25rem;">
                     <label>Action Chips (Interaksi Terpandu):</label>
                     <div class="chip-group" id="chip-container"></div>
                 </div>
-                <div id="chip-response-box" class="layer-box hidden" style="margin-top: 1rem; border-left-color: var(--accent-cyan);"></div>
+                <div id="chip-response-box" class="layer-box hidden" style="margin-top: 1rem;"></div>
             </div>
         </div>
     </div>
@@ -348,56 +343,54 @@
 
         function setPillActive(stageNum) {
             for (let i = 1; i <= 5; i++) {
-                document.getElementById(`pill-s${i}`).classList.toggle('active', i === stageNum);
+                const pill = document.getElementById(`pill-${i}`);
+                if (i === stageNum) pill.classList.add('active');
+                else pill.classList.remove('active');
             }
         }
 
         async function runStage1() {
             const btn = document.getElementById('btn-s1');
             btn.disabled = true;
-            btn.innerHTML = '<span class="loader"></span> Mengorientasi Dokument dengan Gemini 3.6...';
+            btn.innerHTML = '<span class="loader"></span> Mengunduh & Mengekstraksi Konsep...';
 
             try {
                 const res = await fetch(`${API_BASE}/extract-concepts`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        material_id: 'mat-demo',
+                        material_id: 'mat-101',
                         file_url: document.getElementById('material-url').value
                     })
                 });
                 const data = await res.json();
-                if (!res.ok) {
-                    throw new Error(data.detail || `HTTP ${res.status}`);
-                }
-                if (!data.concepts || data.concepts.length === 0) {
-                    throw new Error("Tidak ada konsep yang berhasil diekstrak.");
-                }
                 state.concept = data.concepts[0];
 
                 document.getElementById('out-s1').classList.remove('hidden');
                 document.getElementById('out-s1').innerHTML = `
-                    <div style="padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 0.5rem; border: 1px solid var(--primary);">
-                        <strong>✅ Konsep Berhasil Diekstrak:</strong> ${state.concept.name}<br>
-                        <small style="color: var(--text-muted);">${state.concept.definition}</small>
+                    <div class="layer-box">
+                        <div class="layer-title">Hasil Ekstraksi Graf Konsep</div>
+                        <strong>${state.concept.name}</strong> (${state.concept.concept_id})<br>
+                        <span style="color: var(--text-secondary); font-size: 0.85rem;">"${state.concept.definition}"</span>
                     </div>
                 `;
 
-                document.getElementById('selected-concept-name').value = state.concept.name;
+                document.getElementById('concept-name-display').innerText = state.concept.name;
+                document.getElementById('concept-def-display').innerText = state.concept.definition;
                 document.getElementById('section-s2').classList.remove('hidden');
                 setPillActive(2);
             } catch (e) {
                 alert('Gagal Stage 1: ' + e.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<span>Ekstrak Konsep dengan AI</span>';
+                btn.innerHTML = '<span>Ekstrak Grafik Konsep</span>';
             }
         }
 
         async function runStage2() {
             const btn = document.getElementById('btn-s2');
             btn.disabled = true;
-            btn.innerHTML = '<span class="loader"></span> Menyusun Rubrik Bloom Taxonomy...';
+            btn.innerHTML = '<span class="loader"></span> Menyusun Master Rubrik Penilaian...';
 
             try {
                 const res = await fetch(`${API_BASE}/generate-questions`, {
@@ -407,22 +400,16 @@
                         concept_id: state.concept.concept_id,
                         name: state.concept.name,
                         definition: state.concept.definition,
-                        source_reference: 'Slide 12'
+                        source_reference: 'Slide 5'
                     })
                 });
                 const data = await res.json();
-                if (!res.ok) {
-                    throw new Error(data.detail || `HTTP ${res.status}`);
-                }
-                if (!data.opening_question) {
-                    throw new Error("Gagal membuat pertanyaan pembuka.");
-                }
                 state.rubric = data;
 
                 document.getElementById('out-s2').classList.remove('hidden');
                 document.getElementById('out-s2').innerHTML = `
-                    <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.5rem; border: 1px solid var(--success);">
-                        <strong>✅ Pertanyaan Pembuka Generated:</strong><br>
+                    <div class="layer-box">
+                        <div class="layer-title">Pertanyaan Pembuka Ujian</div>
                         <em>"${state.rubric.opening_question}"</em>
                     </div>
                 `;
@@ -434,7 +421,7 @@
                 alert('Gagal Stage 2: ' + e.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<span>Buat Rubrik Penilaian & Soal Ujian</span>';
+                btn.innerHTML = '<span>Generate Rubrik & Soal Ujian</span>';
             }
         }
 
@@ -444,7 +431,7 @@
             if (!answer) return alert('Ketik jawabanmu terlebih dahulu!');
 
             btn.disabled = true;
-            btn.innerHTML = '<span class="loader"></span> Dosen AI Menguji Jawabanmu...';
+            btn.innerHTML = '<span class="loader"></span> Menguji Jawaban...';
 
             try {
                 const res = await fetch(`${API_BASE}/dialogue/turn`, {
@@ -465,18 +452,19 @@
 
                 document.getElementById('out-s3').classList.remove('hidden');
                 document.getElementById('out-s3').innerHTML = `
-                    <div style="padding: 1rem; background: rgba(6, 182, 212, 0.1); border-radius: 0.5rem; border: 1px solid var(--accent-cyan);">
-                        <strong>💬 Respon Dosen AI:</strong> ${data.next_question || 'Sesi Ujian Selesai! Silakan lanjut ke Stage 4.'}<br><br>
-                        <small><strong>Level Terbukti:</strong> ${data.evaluation.level_reached.toUpperCase()} | <strong>Evidence Trail:</strong> "${data.evaluation.evidence_trail[0] || '-'}"</small>
+                    <div class="layer-box">
+                        <div class="layer-title">Respon Dosen AI</div>
+                        <div>${data.next_question || 'Sesi Ujian Selesai. Silakan lanjut ke Stage 4.'}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                            Level Terbukti: ${data.evaluation.level_reached.toUpperCase()} | Evidence Trail: "${data.evaluation.evidence_trail[0] || '-'}"
+                        </div>
                     </div>
                 `;
 
                 if (data.is_completed) {
-                    // Hanya tampilkan Stage 4 jika sesi ujian BENAR-BENAR SELSEAI
                     document.getElementById('section-s4').classList.remove('hidden');
                     setPillActive(4);
                 } else {
-                    // Sesi ujian masih berlanjut (misal: teguran atau pertanyaan level berikutnya)
                     document.getElementById('user-answer-input').value = '';
                     document.getElementById('user-answer-input').focus();
                 }
@@ -484,7 +472,7 @@
                 alert('Gagal Stage 3: ' + e.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<span>Kirim Jawaban ke Dosen AI</span>';
+                btn.innerHTML = '<span>Kirim Jawaban</span>';
             }
         }
 
@@ -506,16 +494,14 @@
                 });
                 const data = await res.json();
 
-                const badgeClass = `badge-${data.calibration_status}`;
-
                 document.getElementById('out-s4').classList.remove('hidden');
                 document.getElementById('out-s4').innerHTML = `
-                    <div style="padding: 1.25rem; background: rgba(15, 23, 42, 0.8); border-radius: 0.75rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                            <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">Depth Score: ${data.depth_score}%</span>
-                            <span class="badge ${badgeClass}">${data.calibration_status}</span>
+                    <div class="layer-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-size: 1.25rem; font-weight: 700;">Depth Score: ${data.depth_score}%</span>
+                            <span class="badge">${data.calibration_status}</span>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">${data.summary_reason}</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">${data.summary_reason}</p>
                     </div>
                 `;
 
@@ -585,33 +571,28 @@
                         current_turn_count: state.turnCount
                     })
                 });
-                        chip_id: chipId,
-                        current_turn_count: state.turnCount
-                    })
-                });
                 const data = await res.json();
                 state.turnCount++;
 
                 let retestBtnHtml = '';
                 if (data.suggest_retest || data.turns_remaining <= 0) {
-                    // Matikan semua chip button jika kuota habis
                     const chipBtns = document.querySelectorAll('.chip-btn');
                     chipBtns.forEach(btn => btn.disabled = true);
 
                     retestBtnHtml = `
-                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(245, 158, 11, 0.15); border: 1px solid var(--accent-amber); border-radius: 0.75rem;">
-                            <div style="font-weight: 700; color: var(--accent-amber); margin-bottom: 0.5rem;">⚠️ Kuota Interaksi Mode Belajar Habis (3/3 Turns)</div>
-                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Membaca penjelasan saja tidak cukup. Mari buktikan pemahaman barumu lewat Uji Ulang Mini!</p>
-                            <button style="background: linear-gradient(135deg, var(--accent-amber), var(--primary)); border: none;" onclick="resetExamSession()">
-                                <span>🧪 Mulai Uji Ulang Mini (Re-Test Mode)</span>
+                        <div style="margin-top: 0.85rem; padding: 0.85rem; border: 1px solid var(--border-color); border-radius: 0.375rem;">
+                            <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Kuota Interaksi Mode Belajar Habis (3/3 Turns)</div>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.65rem;">Membaca penjelasan saja tidak cukup. Mari buktikan pemahaman barumu lewat Uji Ulang Mini.</p>
+                            <button onclick="resetExamSession()">
+                                <span>Mulai Uji Ulang Mini (Re-Test Mode)</span>
                             </button>
                         </div>
                     `;
                 }
 
                 box.innerHTML = `
-                    <div class="layer-title">💡 Respon Action Chip (${chipId}) - Sisa Kuota Interaksi: ${data.turns_remaining}</div>
-                    <div style="line-height: 1.6;">${data.content}</div>
+                    <div class="layer-title">Respon Action Chip (${chipId}) - Sisa Kuota: ${data.turns_remaining}</div>
+                    <div style="font-size: 0.9rem;">${data.content}</div>
                     ${retestBtnHtml}
                 `;
             } catch (e) {
