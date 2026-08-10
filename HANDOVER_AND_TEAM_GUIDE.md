@@ -1,7 +1,7 @@
 # 🚀 Laporan Pencapaian Modul AI & Panduan Kerja Tim (Handover & Team Guide)
 
 **Status Proyek:** Stage 1 s/d 5 AI Microservice Completed (100% Lulus QA & Verification)  
-**Pemilik AI Microservice:** Zidan Maulana (AI Engineer)  
+**Pemilik AI Microservice:** Zidan Maulana 
 **Target Pembaca:** Lukman & Haikal (Backend), Andika & Mahardika (Frontend), Thomas (UI/UX)  
 **Tanggal Handover:** 11 Agustus 2026  
 **Git Branch:** `develop`  
@@ -114,4 +114,4 @@ Untuk mencoba dan menguji AI Service di komputer lokal Anda:
 
 ---
 
-*Dokumen ini disusun oleh Zidan Maulana (AI Engineer) untuk memastikan transisi integrasi tim berjalan mulus dan efisien.*
+*Dokumen ini disusun oleh Zidan Maulana untuk memastikan transisi integrasi tim berjalan mulus dan efisien.*
