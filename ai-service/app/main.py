@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.endpoints import extract_concepts, generate_questions, dialogue, score
+from app.endpoints import extract_concepts, generate_questions, dialogue, score, remedial
 
 # Inisialisasi Aplikasi FastAPI
 app = FastAPI(
     title="Nalar AI Service API",
-    description="Microservice AI untuk Nalar: Concept Extraction, Question Generation, Adaptive Interrogation Engine, & Scoring",
+    description="Microservice AI untuk Nalar: Concept Extraction, Question Generation, Adaptive Interrogation Engine, Scoring, & Diagnostic Remedial",
     version="1.0.0",
 )
 
@@ -24,6 +24,7 @@ app.include_router(extract_concepts.router)
 app.include_router(generate_questions.router)
 app.include_router(dialogue.router)
 app.include_router(score.router)
+app.include_router(remedial.router)
 
 @app.get("/")
 def read_root():
@@ -43,6 +44,7 @@ def health_check():
     Health check endpoint untuk monitoring sistem.
     """
     return {"status": "healthy"}
+
 
 
 

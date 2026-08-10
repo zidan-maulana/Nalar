@@ -45,6 +45,7 @@ flowchart TD
     D --> E[Input Confidence Level 1-5]
     E --> F[Stage 4: Scoring & Calibration Status]
     F --> G[Knowledge Gap Radar & Dashboard]
+    G --> H[Stage 5: Diagnostic Remedial Engine & Smart Action Chips]
 ```
 
 ---
