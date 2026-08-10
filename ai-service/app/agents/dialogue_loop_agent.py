@@ -1,6 +1,6 @@
 import os
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Literal
 from app.schemas.dialogue import DialogueTurnRequest, DialogueTurnResponse, TurnEvaluationDetail
 from app.config import settings
 from google import genai
