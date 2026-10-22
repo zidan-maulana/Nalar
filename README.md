@@ -62,7 +62,6 @@ flowchart TD
 ```text
 Nalar/
 ├── README.md                           # Dokumentasi utama repositori
-├── Gemini.md                           # Panduan dan konvensi pengembangan AI
 ├── Nalar-Dokumen-Perancangan-Produk.md # Dokumentasi spesifikasi produk komprehensif
 ├── ai-service/                         # Microservice AI (Python & FastAPI)
 │   ├── .env.example                    # Templat konfigurasi lingkungan
